@@ -213,11 +213,7 @@
     
     <!-- 谷歌统计  -->
     
-<!-- hexo injector head_end start -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
-
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
-<!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.4.0"></head>
+<meta name="generator" content="Hexo 5.4.0"></head>
 
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
     <script type="text/javascript">
@@ -493,49 +489,51 @@
             <div class="container container-unloaded">
                 <main class="main post-page">
     <article class="article-entry">
-        <p><strong>学习快速排序、堆排序以及快速选择算法过程中关于时间复杂度的一些记录</strong><br> <span id="more"></span></p>
-<h4 id="一、快速排序-O-nlogn"><a href="#一、快速排序-O-nlogn" class="headerlink" title="一、快速排序 - O(nlogn)"></a>一、快速排序 - O(nlogn)</h4><p>快速排序的平均时间复杂度证明比较复杂，所以只记录一下最好和最坏情况，加深对快排的理解。</p>
-<h5 id="最好情况"><a href="#最好情况" class="headerlink" title="最好情况"></a>最好情况</h5><p>对于长度为n的数组，在最好情况下，每次partition都可以将数组五五分开。</p>
-<p>那么每层partition的比较次数总和为n，比如第一层是将原数组遍历。<br>第二层是两个原数组拆分而来的子数组的两次partition中（又拆出了4个新的子数组）比较的次数总和。<br>第三层是这四个子数组的四次partition中的比较次数之和（拆出了8个新的子数组）……</p>
+        <p><strong>学习快速排序、堆排序以及快速选择算法过程中关于时间复杂度的一些记录</strong> <span id="more"></span></p>
+<h4 id="一快速排序---onlogn">一、快速排序 - O(nlogn)</h4>
+<p>快速排序的平均时间复杂度证明比较复杂，所以只记录一下最好和最坏情况，加深对快排的理解。 ##### 最好情况 对于长度为n的数组，在最好情况下，每次partition都可以将数组五五分开。</p>
+<p>那么每层partition的比较次数总和为n，比如第一层是将原数组遍历。 第二层是两个原数组拆分而来的子数组的两次partition中（又拆出了4个新的子数组）比较的次数总和。 第三层是这四个子数组的四次partition中的比较次数之和（拆出了8个新的子数组）……</p>
 <p>所以，每层递归的比较次数和为原数组长度n。</p>
-<p>而递归深度则为logn。因为每次都将原数组一分为二，设这样一分为二的次数为x，则：</p>
-<script type="math/tex; mode=display">
-\frac{n}{2^x} = 1</script><p>化简为：</p>
-<script type="math/tex; mode=display">
-n ·(\frac{1}{2})^x = 1</script><p>n放到等式右侧，然后两边同时取log2()：</p>
-<script type="math/tex; mode=display">
-log_2(\frac{1}{2})^x = log_2(\frac{1}{n})</script><script type="math/tex; mode=display">
-x = log_2n</script><p>最好情况下，每次递归比较次数为n，一共递归了log2n次，所以时间复杂度是O(nlogn)</p>
-<h5 id="最坏情况"><a href="#最坏情况" class="headerlink" title="最坏情况"></a>最坏情况</h5><p>最坏情况下，数组在排序前就已经是递增/递减的了，即[1, 2, 3, 4, 5, 6]这样的情况。</p>
+<p>而递归深度则为logn。因为每次都将原数组一分为二，设这样一分为二的次数为x，则： <span class="math display">\[
+\frac{n}{2^x} = 1
+\]</span> 化简为： <span class="math display">\[
+n ·(\frac{1}{2})^x = 1
+\]</span> n放到等式右侧，然后两边同时取log2()： <span class="math display">\[
+log_2(\frac{1}{2})^x = log_2(\frac{1}{n})
+\]</span></p>
+<p><span class="math display">\[
+x = log_2n
+\]</span></p>
+<p>最好情况下，每次递归比较次数为n，一共递归了log2n次，所以时间复杂度是O(nlogn)</p>
+<h5 id="最坏情况">最坏情况</h5>
+<p>最坏情况下，数组在排序前就已经是递增/递减的了，即[1, 2, 3, 4, 5, 6]这样的情况。</p>
 <p>在这种情况下，第一次partition时的比较次数是n，但只会将数组拆为[1]和[2, 3, 4, 5, 6]这样的结果，即只减少一个元素。</p>
-<p>因此，第k次partition的比较次数为n - k或n - k - 1（如果len(nums) == 1时直接返回的话，就可以减少一次比较，但不影响计算时间复杂度），一共要进行n - 1次partition。总次数为：</p>
-<script type="math/tex; mode=display">
-(n - 1)+(n - 2)+···+2+1 =\frac{(n - 1 + 1) × (n - 1)}{2}≈(\frac{1}{2})^n</script><p>最坏情况下，每次递归比较次数为n-1到1，一共递归了n-1次，时间复杂度为O(n2)</p>
-<h4 id="二、堆排序-O-nlogn"><a href="#二、堆排序-O-nlogn" class="headerlink" title="二、堆排序 - O(nlogn)"></a>二、堆排序 - O(nlogn)</h4><p>堆排序主要记录一下 <strong>建堆</strong> 以及后续排序过程中 <strong>调整堆</strong> 的时间复杂度。</p>
-<h5 id="建堆"><a href="#建堆" class="headerlink" title="建堆"></a>建堆</h5><p><strong>首先复习一下建堆的过程，这里的建堆方法是：自底向上的建堆方式，时间复杂度是O(n)。</strong></p>
+<p>因此，第k次partition的比较次数为n - k或n - k - 1（如果len(nums) == 1时直接返回的话，就可以减少一次比较，但不影响计算时间复杂度），一共要进行n - 1次partition。总次数为： <span class="math display">\[
+(n - 1)+(n - 2)+···+2+1 =\frac{(n - 1 + 1) × (n - 1)}{2}≈(\frac{1}{2})^n
+\]</span> 最坏情况下，每次递归比较次数为n-1到1，一共递归了n-1次，时间复杂度为O(n2)</p>
+<h4 id="二堆排序---onlogn">二、堆排序 - O(nlogn)</h4>
+<p>堆排序主要记录一下 <strong>建堆</strong> 以及后续排序过程中 <strong>调整堆</strong> 的时间复杂度。</p>
+<h5 id="建堆">建堆</h5>
+<p><strong>首先复习一下建堆的过程，这里的建堆方法是：自底向上的建堆方式，时间复杂度是O(n)。</strong></p>
 <p>第一步，我们需要找到最后一个非叶子节点（有子节点，一个或两个），从它开始，执行这样的操作：</p>
-<ol>
+<ol type="1">
 <li>比较它与它的子节点的大小，如果要建的是小根堆（父结点小于子节点），则将它与它的子节点（1或2个）中最小的那个交换位置（如果父结点是最小的，则不交换）。</li>
 <li>如果进行了交换，则对被交换了的子节点继续执行1操作（将该子节点视为父结点，比较该结点与它的子节点的关系，如果需要交换，则进行交换）。</li>
 <li>经过1和2两步的操作，以最后一个非子结点为根节点的树，一定符合小根堆的结构了。</li>
 </ol>
-<p>第二步，对倒数第二个非叶子结点以及之前的所有结点执行同样的操作，直到整棵树的根结点。<br>完成该步操作之后，即完成了<strong>建堆</strong>的操作，因为每个结点都符合了父结点小于子节点的要求。</p>
-<p><strong>时间复杂度的计算：</strong><br>由等比数列求和公式以及错位相减等方法，可以在最坏的情况下计算出建堆的时间复杂度。</p>
-<p>因为建堆过程中每个节点（非叶子结点）都需要一次下滤操作，交换的次数等于该节点到叶节点的深度（只考虑交换那次操作，不考虑与子节点的比较操作，因为都是常数次数，对时间复杂度的表示没有影响）。<br>那么每一层中所有节点的交换次数为节点个数乘以叶节点到该节点的深度，总的交换次数就是所有层的交换次数之和。<br>具体计算过程见 <a target="_blank" rel="noopener" href="https://www.zhihu.com/question/20729324">堆排序中建堆过程时间复杂度O(n)怎么来的</a> 中SCVTheDefect的回答。</p>
-<h5 id="调整堆"><a href="#调整堆" class="headerlink" title="调整堆"></a>调整堆</h5><p>在堆建好之后，我们要开始排序工作。<br><strong>首先复习排序的方法：</strong><br>因为小根堆/大根堆的最顶层元素就是整个堆中的最小/最大元素，所以我们每次取元素都是从堆顶取，每次取出的都是当前堆中最小/最大的元素。<br>具体流程为：</p>
-<ol>
-<li>交换堆顶与堆的最后一个元素</li>
-<li>令堆中元素数量 -1</li>
-<li>执行<strong>调整堆</strong>的操作（对堆顶元素进行heapify操作）</li>
-<li>循环1-3步骤，直到堆中元素数量为1<br>原理为：<br>每次都将最小/最大元素放到堆的末尾（即数组末尾），然后令堆中（数组中）可访问的最大下标-1，代表该元素不在堆中了，之后的<strong>调整堆</strong>操作也不会对其生效。接下来进行<strong>调整堆</strong>操作，即对堆顶元素进行heapify操作，使得整个数组再次符合堆的结构。<br>整个流程下来，所有元素都会在数组中原地变为递增/递减的结构。</li>
-</ol>
-<p><strong>时间复杂度的计算：</strong><br>每次<strong>调整堆</strong>的时间复杂度为logk，k为堆中剩余元素数量。<br>一共进行了n次<strong>调整堆</strong>操作。</p>
+<p>第二步，对倒数第二个非叶子结点以及之前的所有结点执行同样的操作，直到整棵树的根结点。 完成该步操作之后，即完成了<strong>建堆</strong>的操作，因为每个结点都符合了父结点小于子节点的要求。</p>
+<p><strong>时间复杂度的计算：</strong> 由等比数列求和公式以及错位相减等方法，可以在最坏的情况下计算出建堆的时间复杂度。</p>
+<p>因为建堆过程中每个节点（非叶子结点）都需要一次下滤操作，交换的次数等于该节点到叶节点的深度（只考虑交换那次操作，不考虑与子节点的比较操作，因为都是常数次数，对时间复杂度的表示没有影响）。 那么每一层中所有节点的交换次数为节点个数乘以叶节点到该节点的深度，总的交换次数就是所有层的交换次数之和。 具体计算过程见 <a target="_blank" rel="noopener" href="https://www.zhihu.com/question/20729324">堆排序中建堆过程时间复杂度O(n)怎么来的</a> 中SCVTheDefect的回答。</p>
+<h5 id="调整堆">调整堆</h5>
+<p>在堆建好之后，我们要开始排序工作。 <strong>首先复习排序的方法：</strong> 因为小根堆/大根堆的最顶层元素就是整个堆中的最小/最大元素，所以我们每次取元素都是从堆顶取，每次取出的都是当前堆中最小/最大的元素。 具体流程为： 1. 交换堆顶与堆的最后一个元素 2. 令堆中元素数量 -1 3. 执行<strong>调整堆</strong>的操作（对堆顶元素进行heapify操作） 4. 循环1-3步骤，直到堆中元素数量为1 原理为： 每次都将最小/最大元素放到堆的末尾（即数组末尾），然后令堆中（数组中）可访问的最大下标-1，代表该元素不在堆中了，之后的<strong>调整堆</strong>操作也不会对其生效。接下来进行<strong>调整堆</strong>操作，即对堆顶元素进行heapify操作，使得整个数组再次符合堆的结构。 整个流程下来，所有元素都会在数组中原地变为递增/递减的结构。</p>
+<p><strong>时间复杂度的计算：</strong> 每次<strong>调整堆</strong>的时间复杂度为logk，k为堆中剩余元素数量。 一共进行了n次<strong>调整堆</strong>操作。</p>
 <p>所以总的时间复杂度为O(nlogn)，因为k是变化的（从n逐渐减少为1），所以在表示时间复杂度时，我们可以视为每次<strong>调整堆</strong>都是对n个元素进行的。</p>
 <p><strong>如果是在求最大/最小k个元素时，构建的堆的大小是固定值k，则时间复杂度的表示可以写为O(nlogk)。</strong></p>
-<h4 id="快速选择算法"><a href="#快速选择算法" class="headerlink" title="快速选择算法"></a>快速选择算法</h4><p>快速选择算法是用来计算数组中最大k个元素/第k大元素的。<br>它基于快速排序的思想，也是递归进行partition操作，每次将原数组拆分为两部分，与快速排序不同的是，它递归进行partition的时候只对拆分而来的某一半（两部分中的某一部分）操作，而不是两侧都操作。</p>
-<p><strong>时间复杂度的计算：</strong><br>与快速排序同理，每次partition操作进行的比较次数为当前数组长度。但每层只有一个partition。<br>按平均水平计算，每次partition都将原数组拆分为大小相等的两部分，选择其中一部分进行递归partition。<br>则每层的比较次数为n，n/2，n/4，……直到某次partition数组的长度为1。<br>则总的比较次数为：</p>
-<script type="math/tex; mode=display">
-n + \frac{n}{2}+\frac{n}{4}+\frac{n}{8}···<= 2n</script><p>所以时间复杂度为O(n)。</p>
+<h4 id="快速选择算法">快速选择算法</h4>
+<p>快速选择算法是用来计算数组中最大k个元素/第k大元素的。 它基于快速排序的思想，也是递归进行partition操作，每次将原数组拆分为两部分，与快速排序不同的是，它递归进行partition的时候只对拆分而来的某一半（两部分中的某一部分）操作，而不是两侧都操作。</p>
+<p><strong>时间复杂度的计算：</strong> 与快速排序同理，每次partition操作进行的比较次数为当前数组长度。但每层只有一个partition。 按平均水平计算，每次partition都将原数组拆分为大小相等的两部分，选择其中一部分进行递归partition。 则每层的比较次数为n，n/2，n/4，……直到某次partition数组的长度为1。 则总的比较次数为： <span class="math display">\[
+n + \frac{n}{2}+\frac{n}{4}+\frac{n}{8}···&lt;= 2n 
+\]</span> 所以时间复杂度为O(n)。</p>
 
     </article>
     <!-- license -->
@@ -688,7 +686,7 @@ n + \frac{n}{2}+\frac{n}{4}+\frac{n}{8}···<= 2n</script><p>所以时间复杂
                 <div class="toc-catalog">
                     <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
                 </div>
-                <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F-O-nlogn"><span class="toc-number">1.</span> <span class="toc-text">一、快速排序 - O(nlogn)</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%9C%80%E5%A5%BD%E6%83%85%E5%86%B5"><span class="toc-number">1.1.</span> <span class="toc-text">最好情况</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%9C%80%E5%9D%8F%E6%83%85%E5%86%B5"><span class="toc-number">1.2.</span> <span class="toc-text">最坏情况</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E5%A0%86%E6%8E%92%E5%BA%8F-O-nlogn"><span class="toc-number">2.</span> <span class="toc-text">二、堆排序 - O(nlogn)</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%BB%BA%E5%A0%86"><span class="toc-number">2.1.</span> <span class="toc-text">建堆</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E8%B0%83%E6%95%B4%E5%A0%86"><span class="toc-number">2.2.</span> <span class="toc-text">调整堆</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%BF%AB%E9%80%9F%E9%80%89%E6%8B%A9%E7%AE%97%E6%B3%95"><span class="toc-number">3.</span> <span class="toc-text">快速选择算法</span></a></li></ol>
+                <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%80%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F---onlogn"><span class="toc-number">1.</span> <span class="toc-text">一、快速排序 - O(nlogn)</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%9C%80%E5%9D%8F%E6%83%85%E5%86%B5"><span class="toc-number">1.1.</span> <span class="toc-text">最坏情况</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BA%8C%E5%A0%86%E6%8E%92%E5%BA%8F---onlogn"><span class="toc-number">2.</span> <span class="toc-text">二、堆排序 - O(nlogn)</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%BB%BA%E5%A0%86"><span class="toc-number">2.1.</span> <span class="toc-text">建堆</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E8%B0%83%E6%95%B4%E5%A0%86"><span class="toc-number">2.2.</span> <span class="toc-text">调整堆</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%BF%AB%E9%80%9F%E9%80%89%E6%8B%A9%E7%AE%97%E6%B3%95"><span class="toc-number">3.</span> <span class="toc-text">快速选择算法</span></a></li></ol>
             </div>
         
         <!-- sidebar -->
@@ -738,8 +736,6 @@ n + \frac{n}{2}+\frac{n}{4}+\frac{n}{8}···<= 2n</script><p>所以时间复杂
         
         
     
-        
-        
         
         
         

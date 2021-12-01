@@ -20,12 +20,12 @@
         <meta name="keywords" content="hexo,hexo-theme,hexo-blog">
     
     <meta name="description" content="">
-    <meta name="description" content="双系统的安装教程有很多了，我参考的是这一篇文章，内容非常详细。本次是在Win10的基础上安装Ubuntu18.04，所以选择文章中的18.04版本的教程。 大部分步骤均按照教程的步骤来即可，有一些与教程有一点出入的地方我记录下来，以备下次使用。">
+    <meta name="description" content="双系统的安装教程有很多了，我参考的是这一篇文章，内容非常详细。 本次是在Win10的基础上安装Ubuntu18.04，所以选择文章中的18.04版本的教程。 大部分步骤均按照教程的步骤来即可，有一些与教程有一点出入的地方我记录下来，以备下次使用。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Win10+Ubuntu18.04双系统成功安装过程，附带显卡驱动安装过程">
 <meta property="og:url" content="http://example.com/2021/08/18/New-Test/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="双系统的安装教程有很多了，我参考的是这一篇文章，内容非常详细。本次是在Win10的基础上安装Ubuntu18.04，所以选择文章中的18.04版本的教程。 大部分步骤均按照教程的步骤来即可，有一些与教程有一点出入的地方我记录下来，以备下次使用。">
+<meta property="og:description" content="双系统的安装教程有很多了，我参考的是这一篇文章，内容非常详细。 本次是在Win10的基础上安装Ubuntu18.04，所以选择文章中的18.04版本的教程。 大部分步骤均按照教程的步骤来即可，有一些与教程有一点出入的地方我记录下来，以备下次使用。">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2021-08-18T12:18:38.000Z">
 <meta property="article:modified_time" content="2021-08-18T12:43:07.232Z">
@@ -214,11 +214,7 @@
     
     <!-- 谷歌统计  -->
     
-<!-- hexo injector head_end start -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
-
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
-<!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.4.0"></head>
+<meta name="generator" content="Hexo 5.4.0"></head>
 
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
     <script type="text/javascript">
@@ -502,16 +498,21 @@
             <div class="container container-unloaded">
                 <main class="main post-page">
     <article class="article-entry">
-        <p>双系统的安装教程有很多了，我参考的是<a target="_blank" rel="noopener" href="https://www.cnblogs.com/masbay/p/10745170.html">这一篇文章</a>，内容非常详细。<br>本次是在Win10的基础上安装Ubuntu18.04，所以选择<a target="_blank" rel="noopener" href="https://www.cnblogs.com/masbay/p/11627727.html">文章中的18.04版本的教程</a>。</p>
-<p>大部分步骤均按照教程的步骤来即可，有一些与教程有一点出入的地方我记录下来，以备下次使用。<br> <span id="more"></span></p>
-<h2 id="与教程不一致的点："><a href="#与教程不一致的点：" class="headerlink" title="与教程不一致的点："></a>与教程不一致的点：</h2><h3 id="一、图片不一致"><a href="#一、图片不一致" class="headerlink" title="一、图片不一致"></a>一、图片不一致</h3><p>在 <strong>“三、在windows下创建空白分区”</strong> 这一步中，我的实践与作者的图片有一些的不一致：<br>我是双硬盘的电脑，在对磁盘0进行分区（压缩卷）之后，出来的空间是黑色的未分区状态，不是图中的蓝色状态良好，但这并不影响之后ubuntu引导文件的写入。</p>
-<h3 id="二、BIOS不一致"><a href="#二、BIOS不一致" class="headerlink" title="二、BIOS不一致"></a>二、BIOS不一致</h3><p>在 <strong>“四、用做好的系统盘安装系统”</strong> 步骤中，我的电脑是华硕的主板，BIOS界面与图片差距很大，所以找到了<a target="_blank" rel="noopener" href="https://www.machunjie.com/linux/302.html">这篇文章</a>，专门说明华硕主板如何关闭<strong>快速启动</strong>和<strong>安全启动</strong>，根着这篇文章的“1.1 BIOS设置”的前四步进行设置即可，包括：关闭快速启动、删除键+关闭安全启动、开启CSM模式、BootOption的选择四步。</p>
+        <p>双系统的安装教程有很多了，我参考的是<a target="_blank" rel="noopener" href="https://www.cnblogs.com/masbay/p/10745170.html">这一篇文章</a>，内容非常详细。 本次是在Win10的基础上安装Ubuntu18.04，所以选择<a target="_blank" rel="noopener" href="https://www.cnblogs.com/masbay/p/11627727.html">文章中的18.04版本的教程</a>。</p>
+<p>大部分步骤均按照教程的步骤来即可，有一些与教程有一点出入的地方我记录下来，以备下次使用。 <span id="more"></span> ## 与教程不一致的点：</p>
+<h3 id="一图片不一致">一、图片不一致</h3>
+<p>在 <strong>“三、在windows下创建空白分区”</strong> 这一步中，我的实践与作者的图片有一些的不一致： 我是双硬盘的电脑，在对磁盘0进行分区（压缩卷）之后，出来的空间是黑色的未分区状态，不是图中的蓝色状态良好，但这并不影响之后ubuntu引导文件的写入。</p>
+<h3 id="二bios不一致">二、BIOS不一致</h3>
+<p>在 <strong>“四、用做好的系统盘安装系统”</strong> 步骤中，我的电脑是华硕的主板，BIOS界面与图片差距很大，所以找到了<a target="_blank" rel="noopener" href="https://www.machunjie.com/linux/302.html">这篇文章</a>，专门说明华硕主板如何关闭<strong>快速启动</strong>和<strong>安全启动</strong>，根着这篇文章的“1.1 BIOS设置”的前四步进行设置即可，包括：关闭快速启动、删除键+关闭安全启动、开启CSM模式、BootOption的选择四步。</p>
 <p>与这篇文章不同的是，我是在插入制作好的启动盘（软碟通写好的u盘）后才进入的BIOS设置，这时候我在BootOption这里能看到四个option（应该是四个优先级），设置option1为你的u盘，然后保存退出即可。退出之后系统会重启，不用再次进入BIOS，会直接到install ubuntu的界面，选择，按照顺序来就好。</p>
-<h3 id="三、Ubuntu安装问题"><a href="#三、Ubuntu安装问题" class="headerlink" title="三、Ubuntu安装问题"></a>三、Ubuntu安装问题</h3><p>在安装ubuntu的过程中，我还多出现了一个问题，提示：<br><strong>”安装程序向硬盘复制文件时遇到错误“</strong><br>是在选择时区之后的安装过程中出现的，具体界面没有截图。<br>百度了一下得知是u盘有问题，换了另一个金士顿的重新制作启动盘，再到这步（给ubuntu分区，比如efi，swap等等）的时候你会发现之前在windows里分好的区已经不是“空闲”状态了，因为在上次失败的安装过程中已经有一部分文件写入了，这时候我们需要点那个减号，重新分区，分好之后就一路绿灯安装完成。</p>
-<h3 id="四、显卡驱动问题"><a href="#四、显卡驱动问题" class="headerlink" title="四、显卡驱动问题"></a>四、显卡驱动问题</h3><p>安装完成后，按照教程的顺序，我们只需要重启再次进入ubuntu就可以了，但是我这里出现了这次双系统安装过程中遇到的最大的坑：ubuntu下的显卡驱动有问题。</p>
+<h3 id="三ubuntu安装问题">三、Ubuntu安装问题</h3>
+<p>在安装ubuntu的过程中，我还多出现了一个问题，提示： <strong>”安装程序向硬盘复制文件时遇到错误“</strong> 是在选择时区之后的安装过程中出现的，具体界面没有截图。 百度了一下得知是u盘有问题，换了另一个金士顿的重新制作启动盘，再到这步（给ubuntu分区，比如efi，swap等等）的时候你会发现之前在windows里分好的区已经不是“空闲”状态了，因为在上次失败的安装过程中已经有一部分文件写入了，这时候我们需要点那个减号，重新分区，分好之后就一路绿灯安装完成。</p>
+<h3 id="四显卡驱动问题">四、显卡驱动问题</h3>
+<p>安装完成后，按照教程的顺序，我们只需要重启再次进入ubuntu就可以了，但是我这里出现了这次双系统安装过程中遇到的最大的坑：ubuntu下的显卡驱动有问题。</p>
 <p>正常的安装完成后，重启进入ubuntu登陆账号进入桌面即可，但我这里重启来到ubuntu的登陆界面后，鼠标键盘都非常卡，而且输入完用户名密码登陆之后会黑屏，然后重新弹回登陆界面。‘</p>
-<p>经过查询得知是显卡驱动的问题，我参考了<a target="_blank" rel="noopener" href="https://www.cnblogs.com/booturbo/p/13967033.html">文章1</a>和<a target="_blank" rel="noopener" href="http://www.45fan.com/article.php?aid=20052773825705249108828691">文章2</a>来解决这个问题。<br>首先执行文章2中的step1和step2，重启（此时是在命令行状态下输入的代码）。<br>然后使用文章1中的方法，主要是找到 quiet splash ，在后面添加nomodeset，按 F10 进入了ubuntu系统，此时的系统分辨率很低。<br>此时再根据<a target="_blank" rel="noopener" href="https://blog.csdn.net/u014561933/article/details/79958017?utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromMachineLearnPai2%7Edefault-1.control&amp;depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromMachineLearnPai2%7Edefault-1.control">这篇文章</a>的2.1、2.2、2.4步骤，主要是得禁用nouveau 内核模块，重启。再用<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lsmod |grep nouveau</span><br></pre></td></tr></table></figure><br>查询是否禁用成功。</p>
-<h3 id="五、显卡驱动安装"><a href="#五、显卡驱动安装" class="headerlink" title="五、显卡驱动安装"></a>五、显卡驱动安装</h3><p>最后就是在终端内安装.run程序。其中也遇到了一些问题：<br>首先，在./Nvidia……这个程序的时候，最后要加上这三个参数：<br>–no-opengl-files<br>–no-x-check<br>–no-nouveau-check<br>安装过程中可能会提示：pre-install xxx failed，不用管，继续就行。<a target="_blank" rel="noopener" href="https://blog.csdn.net/u014561933/article/details/79958130">[参考这个]</a><br>如果提示缺少什么包，就退出之后，安装好之后再重新运行.run程序。我这里提示缺少gcc和make，使用apt-get安装了就好了<br>我在安装过程中的选项所有都选择的no，安装complete之后可以直接输入<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nvidia-smi</span><br></pre></td></tr></table></figure><br>验证，弹出显卡的信息之后就说明安装成功了。</p>
+<p>经过查询得知是显卡驱动的问题，我参考了<a target="_blank" rel="noopener" href="https://www.cnblogs.com/booturbo/p/13967033.html">文章1</a>和<a target="_blank" rel="noopener" href="http://www.45fan.com/article.php?aid=20052773825705249108828691">文章2</a>来解决这个问题。 首先执行文章2中的step1和step2，重启（此时是在命令行状态下输入的代码）。 然后使用文章1中的方法，主要是找到 quiet splash ，在后面添加nomodeset，按 F10 进入了ubuntu系统，此时的系统分辨率很低。 此时再根据<a target="_blank" rel="noopener" href="https://blog.csdn.net/u014561933/article/details/79958017?utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromMachineLearnPai2%7Edefault-1.control&amp;depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromMachineLearnPai2%7Edefault-1.control">这篇文章</a>的2.1、2.2、2.4步骤，主要是得禁用nouveau 内核模块，重启。再用 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lsmod |grep nouveau</span><br></pre></td></tr></table></figure> 查询是否禁用成功。</p>
+<h3 id="五显卡驱动安装">五、显卡驱动安装</h3>
+<p>最后就是在终端内安装.run程序。其中也遇到了一些问题： 首先，在./Nvidia……这个程序的时候，最后要加上这三个参数： –no-opengl-files –no-x-check –no-nouveau-check 安装过程中可能会提示：pre-install xxx failed，不用管，继续就行。<a target="_blank" rel="noopener" href="https://blog.csdn.net/u014561933/article/details/79958130">[参考这个]</a> 如果提示缺少什么包，就退出之后，安装好之后再重新运行.run程序。我这里提示缺少gcc和make，使用apt-get安装了就好了 我在安装过程中的选项所有都选择的no，安装complete之后可以直接输入 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nvidia-smi</span><br></pre></td></tr></table></figure> 验证，弹出显卡的信息之后就说明安装成功了。</p>
 <p>此时我们再次重启，在windows/ubuntu选择界面就可以任意选择系统进入了，此时的ubuntu已经是高分辨率的有了显卡驱动的状态了。</p>
 <p>至此，双系统安装完成。</p>
 
@@ -666,7 +667,7 @@
                 <div class="toc-catalog">
                     <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
                 </div>
-                <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%8E%E6%95%99%E7%A8%8B%E4%B8%8D%E4%B8%80%E8%87%B4%E7%9A%84%E7%82%B9%EF%BC%9A"><span class="toc-number">1.</span> <span class="toc-text">与教程不一致的点：</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E5%9B%BE%E7%89%87%E4%B8%8D%E4%B8%80%E8%87%B4"><span class="toc-number">1.1.</span> <span class="toc-text">一、图片不一致</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%8C%E3%80%81BIOS%E4%B8%8D%E4%B8%80%E8%87%B4"><span class="toc-number">1.2.</span> <span class="toc-text">二、BIOS不一致</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%89%E3%80%81Ubuntu%E5%AE%89%E8%A3%85%E9%97%AE%E9%A2%98"><span class="toc-number">1.3.</span> <span class="toc-text">三、Ubuntu安装问题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9B%9B%E3%80%81%E6%98%BE%E5%8D%A1%E9%A9%B1%E5%8A%A8%E9%97%AE%E9%A2%98"><span class="toc-number">1.4.</span> <span class="toc-text">四、显卡驱动问题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%94%E3%80%81%E6%98%BE%E5%8D%A1%E9%A9%B1%E5%8A%A8%E5%AE%89%E8%A3%85"><span class="toc-number">1.5.</span> <span class="toc-text">五、显卡驱动安装</span></a></li></ol></li></ol>
+                <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%80%E5%9B%BE%E7%89%87%E4%B8%8D%E4%B8%80%E8%87%B4"><span class="toc-number">1.</span> <span class="toc-text">一、图片不一致</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%8Cbios%E4%B8%8D%E4%B8%80%E8%87%B4"><span class="toc-number">2.</span> <span class="toc-text">二、BIOS不一致</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%89ubuntu%E5%AE%89%E8%A3%85%E9%97%AE%E9%A2%98"><span class="toc-number">3.</span> <span class="toc-text">三、Ubuntu安装问题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9B%9B%E6%98%BE%E5%8D%A1%E9%A9%B1%E5%8A%A8%E9%97%AE%E9%A2%98"><span class="toc-number">4.</span> <span class="toc-text">四、显卡驱动问题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%94%E6%98%BE%E5%8D%A1%E9%A9%B1%E5%8A%A8%E5%AE%89%E8%A3%85"><span class="toc-number">5.</span> <span class="toc-text">五、显卡驱动安装</span></a></li></ol>
             </div>
         
         <!-- sidebar -->
@@ -716,8 +717,6 @@
         
         
     
-        
-        
         
         
         
