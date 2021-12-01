@@ -213,7 +213,11 @@
     
     <!-- 谷歌统计  -->
     
-<meta name="generator" content="Hexo 5.4.0"></head>
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.4.0"></head>
 
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
     <script type="text/javascript">
@@ -493,16 +497,10 @@
 <p>此前在遇到这类题的时候都是直接sort(调用api)或者自己写快排，之后选取想要的部分，时间复杂度一般都是O(nlogn)。<br>然而对于此类题型其实有更优解，比如略优一些的堆排序O(nlogk)以及快速选择算法O(n)</p>
 <p>题目链接：<a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/kth-largest-element-in-an-array/">https://leetcode-cn.com/problems/kth-largest-element-in-an-array/</a><br> <span id="more"></span></p>
 <h4 id="解法1：快速排序（随机选择基准，需要用到random库），O-nlogn"><a href="#解法1：快速排序（随机选择基准，需要用到random库），O-nlogn" class="headerlink" title="解法1：快速排序（随机选择基准，需要用到random库），O(nlogn)"></a>解法1：快速排序（随机选择基准，需要用到random库），O(nlogn)</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">QuickSort</span>(<span class="params">lst</span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">partition</span>(<span class="params">arr, left, right</span>):</span></span><br><span class="line">        <span class="comment">#随机选取基准数，将其与最左侧的值交换，还是以最左侧的位置作为基准进行排序的过程，只不过基准的值变了</span></span><br><span class="line">        key = random.randint(left, right)</span><br><span class="line">        arr[key], arr[left] = arr[left], arr[key]</span><br><span class="line">        key = left</span><br><span class="line"></span><br><span class="line">        <span class="comment">#这里一定要首先从右向左缩，因为pivot是在最左侧，所以首先要保证可以找到小于等于pivot的值。所以让right先去找小于等于pivot的值</span></span><br><span class="line">        <span class="comment">#找到之后再让left去找大于等于pivot的值。</span></span><br><span class="line">        <span class="comment">#因为循环体（while left &lt; right and arr[right] &gt;= arr[key]:）内有left &lt; right的约束，如果从左边先开始找比pivot大的值</span></span><br><span class="line">        <span class="comment">#则可能right被限制在left停留的位置从而找不到比pivot小的值，此时left=right，arr[key]&lt;=arr[left]，但还需要进行arr[key]与arr[left]的交换，</span></span><br><span class="line">        <span class="comment">#结果导致arr[left]处被交换过来的原始的arr[key]值要小于左侧的原始的arr[left]值，不符合左侧都小于key的要求。详情直接上网搜就行，很多解析</span></span><br><span class="line">        <span class="keyword">while</span> left &lt; right:</span><br><span class="line">            <span class="keyword">while</span> left &lt; right <span class="keyword">and</span> arr[right] &gt;= arr[key]:</span><br><span class="line">                right -= <span class="number">1</span></span><br><span class="line">            <span class="keyword">while</span> left &lt; right <span class="keyword">and</span> arr[left] &lt;= arr[key]:</span><br><span class="line">                left += <span class="number">1</span></span><br><span class="line">            arr[left], arr[right] = arr[right], arr[left]</span><br><span class="line">        arr[left], arr[key] = arr[key], arr[left]</span><br><span class="line">        <span class="keyword">return</span> left</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">sort</span>(<span class="params">arr,left,right</span>):</span></span><br><span class="line">        <span class="keyword">if</span> left &gt;= right:</span><br><span class="line">            <span class="keyword">return</span></span><br><span class="line">        mid = partition(arr,left,right)</span><br><span class="line">        sort(arr,mid+<span class="number">1</span>,right)</span><br><span class="line">        sort(arr,left,mid-<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">    n = <span class="built_in">len</span>(lst)</span><br><span class="line">    <span class="keyword">if</span> n &lt;= <span class="number">1</span>:</span><br><span class="line">        <span class="keyword">return</span> lst</span><br><span class="line">    sort(lst,<span class="number">0</span>,n-<span class="number">1</span>)</span><br><span class="line">    <span class="keyword">return</span> lst</span><br></pre></td></tr></table></figure>
-
-
-
 <h4 id="解法2：堆，O-nlogk"><a href="#解法2：堆，O-nlogk" class="headerlink" title="解法2：堆，O(nlogk)"></a>解法2：堆，O(nlogk)</h4><p>因为题目中求的是第k大的数，所以我们应该建立的是小根堆。<br><strong>思路是：<br>首先选取数组中的前k个元素构建堆，这样堆的顶层元素就是这k个元素的最小值。此时我们继续从数组的第k+1个元素开始遍历，每次都遍历到的元素push入堆，然后把堆中最小值pop取出。</strong></p>
 <p><strong>这样，当我们遍历完所有元素之后，数组中最大的k个元素将会剩在堆中(因为其他的元素都比这些剩下的元素小，在遍历的过程中都曾到达过堆顶的位置从而被pop出去了)。</strong></p>
 <p><strong>此时堆顶的元素就是这剩下的最大的k个元素中最小的，即第k大的元素。</strong></p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">findKthLargest</span>(<span class="params">self, nums: <span class="type">List</span>[<span class="built_in">int</span>], k: <span class="built_in">int</span></span>) -&gt; <span class="built_in">int</span>:</span></span><br><span class="line">	<span class="comment"># 构造大小为 k 的小顶堆</span></span><br><span class="line">	heap = [x <span class="keyword">for</span> x <span class="keyword">in</span> nums[:k]]</span><br><span class="line">	heapq.heapify(heap)</span><br><span class="line">	n = <span class="built_in">len</span>(nums)</span><br><span class="line">	<span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(k, n):</span><br><span class="line">    <span class="comment"># 如果遍历到的元素小于堆中最小元素，则直接跳过，只有大于堆中最小元素，才有留在这个堆中的可能</span></span><br><span class="line">    	<span class="keyword">if</span> nums[i] &gt; heap[<span class="number">0</span>]:</span><br><span class="line">    		heapq.heappop(heap)</span><br><span class="line">    		heapq.heappush(heap, nums[i])</span><br><span class="line">    <span class="keyword">return</span> heap[<span class="number">0</span>]</span><br></pre></td></tr></table></figure>
-
-
-
 <h4 id="解法3：快速选择，O-n"><a href="#解法3：快速选择，O-n" class="headerlink" title="解法3：快速选择，O(n)"></a>解法3：快速选择，O(n)</h4><p>快速选择法是基于快速排序的思想，因为我们需要找的是第k大元素（或者别的），并不需要把所有元素都排好序。</p>
 <p><strong>根据快速排序的特性，每次partition之后，选取的基准值被放入的位置就是最终排序完成时其应该在的位置。</strong></p>
 <p><strong>所以，在每次partition之后，我们判断一下这个基准值是不是数组的第k个（从大到小排序），如果是的话我们可以直接返回这个值，它就是第k大元素。<br>如果不是的话，那么第k大元素一定是在基准值的索引左侧或右侧区间，我们根据索引与k的大小关系，递归地partition第k大元素存在的区间即可，无需像快速排序一样要递归两个区间。</strong></p>
@@ -521,6 +519,11 @@
     <!-- paginator -->
     <ul class="post-paginator">
         <li class="next">
+            
+                <div class="nextSlogan">Next Post</div>
+                <a href="/2021/12/01/%E5%BF%AB%E6%8E%92%E5%A0%86%E6%8E%92%E6%97%B6%E9%97%B4%E5%A4%8D%E6%9D%82%E5%BA%A6/" title="关于快排，堆排，快速选择的时间复杂度理解">
+                    <div class="nextTitle">关于快排，堆排，快速选择的时间复杂度理解</div>
+                </a>
             
         </li>
         <li class="previous">
@@ -702,7 +705,24 @@
         
         
         
+        
+        
+        
+        
+        
     
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
         
         
         
@@ -727,7 +747,7 @@
     
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 6
+        Total : 7
         </div>
         <!-- search  -->
         
@@ -741,6 +761,12 @@
             <div class="archive-year"> 2021 </div>
             <ul class="year-list">
             
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/01</span>
+            <a class="archive-post-title" href="/2021/12/01/%E5%BF%AB%E6%8E%92%E5%A0%86%E6%8E%92%E6%97%B6%E9%97%B4%E5%A4%8D%E6%9D%82%E5%BA%A6/">关于快排，堆排，快速选择的时间复杂度理解</a>
+        </li>
+    
         
         <li class="archive-post-item">
             <span class="archive-post-date">12/01</span>

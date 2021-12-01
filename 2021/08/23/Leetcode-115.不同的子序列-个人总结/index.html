@@ -215,7 +215,11 @@
     
     <!-- 谷歌统计  -->
     
-<meta name="generator" content="Hexo 5.4.0"></head>
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.4.0"></head>
 
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
     <script type="text/javascript">
@@ -496,11 +500,10 @@
 <p>字符串的一个 子序列 是指，通过删除一些（也可以不删除）字符且不干扰剩余字符相对位置所组成的新字符串。（例如，”ACE” 是 “ABCDE” 的一个子序列，而 “AEC” 不是）</p>
 <p>题目数据保证答案符合 32 位带符号整数范围。</p>
  <span id="more"></span>
-<p><img src="/images/example.png"></p>
+<p><img src="/images/example.png" alt=""></p>
 <h2 id="个人总结"><a href="#个人总结" class="headerlink" title="个人总结"></a>个人总结</h2><p>首先，这道题我是参考<strong>代码随想录</strong>的题解来理解的，附上攻略地址：<a target="_blank" rel="noopener" href="https://github.com/youngyangyang04/leetcode-master/blob/master/problems/0115.%E4%B8%8D%E5%90%8C%E7%9A%84%E5%AD%90%E5%BA%8F%E5%88%97.md">115.不同的子序列</a><br>题目主要难点在于递推公式的导出，特别是当前循环中判断的两字符相同时，即 <code>s[i - 1] == t[j - 1]</code>时，<code>dp[i][j]</code>的值由两部分组成，一部分是<code>dp[i - 1][j]</code>，另一部分是<code>dp[i - 1][j - 1]</code>。</p>
 <p>这道题是动态规划题目，需要循环地对dp数组赋值，题解中的关键循环部分就如以下代码所示：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>, m + <span class="number">1</span>):</span><br><span class="line">	<span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>, n + <span class="number">1</span>):</span><br><span class="line">		<span class="keyword">if</span> t[j - <span class="number">1</span>] == s[i - <span class="number">1</span>]:</span><br><span class="line">			dp[i][j] = dp[i - <span class="number">1</span>][j - <span class="number">1</span>] + dp[i - <span class="number">1</span>][j]</span><br><span class="line">		<span class="keyword">else</span>:</span><br><span class="line">			dp[i][j] = dp[i - <span class="number">1</span>][j]</span><br></pre></td></tr></table></figure>
-
 <p>刚才说的<code>s[i - 1] == t[j - 1]</code>情况，就对应于代码中的<code>if t[j - 1] == s[i - 1]:</code>部分。<br>此情况下<code>dp[i][j]</code>的递推有一些难以理解，接下来就将理解过程记录下来。</p>
 <p>————————————————————</p>
 <h3 id="一、从dp-i-j-的定义开始"><a href="#一、从dp-i-j-的定义开始" class="headerlink" title="一、从dp[i][j]的定义开始"></a>一、从<code>dp[i][j]</code>的定义开始</h3><p><strong>题目理解:</strong><br>在本题中，我们需要在一个长一点的字符串s中寻找短一点的t字符串，只是找到t还不行，还得把s的子序列中所有能组成t字符串的情况都找到，返回一个总数。</p>
@@ -508,21 +511,15 @@
 <p><strong>至于为什么是用<code>dp[i][j]</code>来保存s的前i - 1个字符而不是前i个字符，可以这么理解：</strong><br>我们在循环判断s的某个字符s[i]是否等于t[j]的过程中，肯定有一个最开始的阶段，即判断s的第一个字符和t的第一个字符是否相同。如果相同，就执行xxx，如果不同，就执行xxx。<br>当我们使用<code>dp[i][j]</code>来保存s的前i个字符和t的前j个字符的判断结果时，判断s的第一个字符和t的第一个字符是否相同，就是判断s[0]是否等于t[0]。如果相同，就执行xxx，如果不同，就执行xxx。</p>
 <p>可是我们从递推公式上看到，相同的情况下:<br><code>dp[i][j] = dp[i - 1][j - 1] + dp[i - 1][j]</code><br>不同的情况下:<br><code>dp[i][j] = dp[i - 1][j]</code><br>如果i = j = 0，则递推公式中的i - 1，j - 1都将小于0，这是不合适的做法，某些情况下，会导致意外的错误。</p>
 <p>因此,我们在定义dp数组的时候就让它的行和列分别等于m + 1和n + 1(m代表长一点的字符串s的长度，n代表t的长度)，当前也可以反过来定义。</p>
-<p>然后令它的第一行(索引为i = 0)和第一列(j = 0)为废弃掉的区域，不进行计算(内外循环都从1开始，并到m + 1或n + 1才结束)，只用作为后续的计算(i = 1 或 j = 1的情况)提供正确的初始化值。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">m = <span class="built_in">len</span>(s)</span><br><span class="line">n = <span class="built_in">len</span>(t)</span><br><span class="line">dp = [[<span class="number">0</span>] * (n + <span class="number">1</span>) <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(m + <span class="number">1</span>)]</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>, m + <span class="number">1</span>):</span><br><span class="line">	<span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>, n + <span class="number">1</span>):</span><br><span class="line">		<span class="keyword">if</span> t[j - <span class="number">1</span>] == s[i - <span class="number">1</span>]:</span><br><span class="line">			dp[i][j] = dp[i - <span class="number">1</span>][j - <span class="number">1</span>] + dp[i - <span class="number">1</span>][j]</span><br><span class="line">		<span class="keyword">else</span>:</span><br><span class="line">			dp[i][j] = dp[i - <span class="number">1</span>][j]</span><br></pre></td></tr></table></figure>
-<p>如代码所示，循环从1开始，到m + 1或n + 1结束，并且<code>dp[i][j]</code>的值是由<code> t[j - 1] == s[i - 1]</code>是否相等决定的(而不是<code> t[j] == s[i]</code>)</p>
+<p>然后令它的第一行(索引为i = 0)和第一列(j = 0)为废弃掉的区域，不进行计算(内外循环都从1开始，并到m + 1或n + 1才结束)，只用作为后续的计算(i = 1 或 j = 1的情况)提供正确的初始化值。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">m = <span class="built_in">len</span>(s)</span><br><span class="line">n = <span class="built_in">len</span>(t)</span><br><span class="line">dp = [[<span class="number">0</span>] * (n + <span class="number">1</span>) <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(m + <span class="number">1</span>)]</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>, m + <span class="number">1</span>):</span><br><span class="line">	<span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>, n + <span class="number">1</span>):</span><br><span class="line">		<span class="keyword">if</span> t[j - <span class="number">1</span>] == s[i - <span class="number">1</span>]:</span><br><span class="line">			dp[i][j] = dp[i - <span class="number">1</span>][j - <span class="number">1</span>] + dp[i - <span class="number">1</span>][j]</span><br><span class="line">		<span class="keyword">else</span>:</span><br><span class="line">			dp[i][j] = dp[i - <span class="number">1</span>][j]</span><br></pre></td></tr></table></figure><br>如代码所示，循环从1开始，到m + 1或n + 1结束，并且<code>dp[i][j]</code>的值是由<code>t[j - 1] == s[i - 1]</code>是否相等决定的(而不是<code>t[j] == s[i]</code>)</p>
 <p>————————————————————</p>
 <h3 id="二、递推公式的理解"><a href="#二、递推公式的理解" class="headerlink" title="二、递推公式的理解"></a>二、递推公式的理解</h3><p>在两层循环中，我们在外层循环每次从左到右依次选择一个s的字符，把它拿来和内层循环中字符串t从左到右的每个字符进行比较，看看它们是否相同。</p>
 <h4 id="1-不相同的情况"><a href="#1-不相同的情况" class="headerlink" title="1. 不相同的情况:"></a><strong>1. 不相同的情况:</strong></h4><p>不相同的情况很好理解，即当<code>s[i - 1] != t[j - 1]</code>时（s的第i - 1个字符与t的第j - 1个字符不同），根据dp的定义，<code>dp[i][j]</code>表示的是s的前i - 1个字符组成的子序列里有多少个t的前j - 1个字符组成的子序列。现在s的第i - 1个字符与t的第j - 1个不同，则说明s的前i - 2个字符无论加不加上第i - 1个字符，s的子序列包含的前j - 1个字符组成的t的子序列数量都是相同的。即</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dp[i][j] = dp[i - <span class="number">1</span>][j]</span><br></pre></td></tr></table></figure>
-
 <p>也可以这么理解，<code>dp[i][j]</code>的值肯定是随着i和j的变化而变化的，现在i的值从i - 2变成了i - 1，即s的子序列长度增加了，因此包含t的前j - 1个字符的可能性也增加了，所以<code>dp[i][j]</code>的值有概率是比<code>dp[i - 1][j]</code>要大的。</p>
 <p>但是因为是<code>s[i - 1] != t[j - 1]</code>的情况，s的第i - 1个字符与t的子序列的最后一个字符（第j - 1个字符）是不相同的，那么s子序列新增加的这一个字符就不可能包含了新的“包含t的子序列”的情况。</p>
 <p>所以在这样的条件下，<code>dp[i][j]</code>就与<code>dp[i - 1][j]</code>相等了，<strong>因为无论是s的前i - 2个字符还是前i - 1个字符，包含的“由t的前j - 1个字符组成的子序列”的数量是一样的，表示为</strong>：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dp[i][j] = dp[i - <span class="number">1</span>][j]</span><br></pre></td></tr></table></figure>
-
-
-
 <p>————————————————————</p>
 <h4 id="2-相同的情况"><a href="#2-相同的情况" class="headerlink" title="2. 相同的情况:"></a><strong>2. 相同的情况:</strong></h4><p>相同的情况下，<code>dp[i][j]</code>由两部分组成：<code>dp[i - 1][j] + dp[i - 1][j - 1]。</code><br>如果先不看它是怎么组成的，只是从逻辑上理解，可以这么分析：<br><code>dp[i][j]</code>表示的是<code>s[:i]</code>（s前i - 1个字符）中包含多少个<code>t[:j]</code>（t的前j - 1个字符），首先它肯定包括了<code>dp[i - 1][j]</code>个<code>t[:j]</code>，因为<code>dp[i - 1][j]</code>表示<code>s[:i - 1]</code>（s的前i - 2个字符）中包含<code>t[:j]</code>的数量。</p>
 <p>那么现在s的长度增加了1，即新增了一个字符<code>s[i - 1]</code>，长度变为<code>s[:i]</code>，那它包含的<code>t[:j]</code>的数量只可能更多（可能不变，可能增多）。当<code>s[i - 1] == t[j - 1]</code>时，新增的这一个字符使得<code>s[:i - 1]</code>中包含的<code>t[:j - 1]</code>的数量也满足了<code>s[:i]</code>包含<code>t[:j]</code>的条件。</p>
@@ -538,16 +535,11 @@
 </ol>
 <p>即在<code>s[i - 1] == t[j - 1]</code>的条件下，</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> t[j - <span class="number">1</span>] == s[i - <span class="number">1</span>]:</span><br><span class="line">	dp[i][j] = dp[i - <span class="number">1</span>][j - <span class="number">1</span>] + dp[i - <span class="number">1</span>][j]</span><br></pre></td></tr></table></figure>
-
 <p>————————————————————</p>
 <p>至此，有了递推公式，根据实际情况将dp多出来的第一行和第一列初始化，然后两层循环即可。整体代码如下：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">numDistinct</span>(<span class="params">self, s: <span class="built_in">str</span>, t: <span class="built_in">str</span></span>) -&gt; <span class="built_in">int</span>:</span></span><br><span class="line">        m = <span class="built_in">len</span>(s)</span><br><span class="line">        n = <span class="built_in">len</span>(t)</span><br><span class="line">        dp = [[<span class="number">0</span>] * (n + <span class="number">1</span>) <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(m + <span class="number">1</span>)]</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(m + <span class="number">1</span>):</span><br><span class="line">            dp[i][<span class="number">0</span>] = <span class="number">1</span></span><br><span class="line">        <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>, n + <span class="number">1</span>):</span><br><span class="line">            dp[<span class="number">0</span>][j] = <span class="number">0</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>, m + <span class="number">1</span>):</span><br><span class="line">            <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>, n + <span class="number">1</span>):</span><br><span class="line">                <span class="keyword">if</span> t[j - <span class="number">1</span>] == s[i - <span class="number">1</span>]:</span><br><span class="line">                    dp[i][j] = dp[i - <span class="number">1</span>][j - <span class="number">1</span>] + dp[i - <span class="number">1</span>][j]</span><br><span class="line">                <span class="keyword">else</span>:</span><br><span class="line">                    dp[i][j] = dp[i - <span class="number">1</span>][j]</span><br><span class="line">        <span class="keyword">return</span> dp[m][n]</span><br></pre></td></tr></table></figure>
-
-
 <h2 id="9-14日复习该题，总结"><a href="#9-14日复习该题，总结" class="headerlink" title="9.14日复习该题，总结"></a>9.14日复习该题，总结</h2><p>遇到了子序列匹配的问题，重新回顾一下这题。</p>
-<h3 id="新的理解"><a href="#新的理解" class="headerlink" title="新的理解"></a>新的理解</h3><p>本次回顾对<strong>相同情况</strong>的递推公式有了新的理解。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> t[j - <span class="number">1</span>] == s[i - <span class="number">1</span>]:</span><br><span class="line">	dp[i][j] = dp[i - <span class="number">1</span>][j - <span class="number">1</span>] + dp[i - <span class="number">1</span>][j]</span><br></pre></td></tr></table></figure>
-<p>首先，我发现公式中的<code>dp[i - 1][j - 1]</code>部分很好理解，就是当s的当前字符与t的当前字符相同时，想知道s的这前<code>i - 1</code>个字符中包含多少个t的前<code>j - 1</code>个字符，表示为<code>dp[i][j]</code>。<br>那么，因为它俩最后一个字符相同，则<code>dp[i][j]</code>一定有一部分是由<code>dp[i - 1][j - 1]</code>组成的。因为<code>dp[i - 1][j - 1]</code>表示i的前<code>i - 2</code>个字符里包含多少t的<code>j - 2</code>个字符，现在它俩的第<code>i - 1</code>和<code>j - 1</code>个字符又相等，自然有了上述结论。</p>
+<h3 id="新的理解"><a href="#新的理解" class="headerlink" title="新的理解"></a>新的理解</h3><p>本次回顾对<strong>相同情况</strong>的递推公式有了新的理解。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> t[j - <span class="number">1</span>] == s[i - <span class="number">1</span>]:</span><br><span class="line">	dp[i][j] = dp[i - <span class="number">1</span>][j - <span class="number">1</span>] + dp[i - <span class="number">1</span>][j]</span><br></pre></td></tr></table></figure><br>首先，我发现公式中的<code>dp[i - 1][j - 1]</code>部分很好理解，就是当s的当前字符与t的当前字符相同时，想知道s的这前<code>i - 1</code>个字符中包含多少个t的前<code>j - 1</code>个字符，表示为<code>dp[i][j]</code>。<br>那么，因为它俩最后一个字符相同，则<code>dp[i][j]</code>一定有一部分是由<code>dp[i - 1][j - 1]</code>组成的。因为<code>dp[i - 1][j - 1]</code>表示i的前<code>i - 2</code>个字符里包含多少t的<code>j - 2</code>个字符，现在它俩的第<code>i - 1</code>和<code>j - 1</code>个字符又相等，自然有了上述结论。</p>
 <p>难以理解的是<code>dp[i - 1][j]</code>部分，即s的前<code>i - 2</code>个字符里包含多少t的前<code>j - 1</code>个字符。</p>
 <p>对于这部分，我的困惑点在于：这部分包含的各个子序列不会和<code>dp[i - 1][j - 1]</code>的部分相同吗？因为最后的结果是这两部分相加，从结果上看，这两部分必然没有交集，其中的每个子序列情况都是实打实的不同个体，所以才可以相加得到s的<code>i - 1</code>个字符里包含多少种可以组成t的前<code>j - 1</code>个字符的情况。</p>
 <p>那么如何理解这两部分没有交集呢？<br>我是这么想的：<br>首先<code>dp[i - 1][j]</code>表示的是s的前<code>i - 2</code>个字符里包含t的前<code>j - 1</code>个字符的情况数，那么此时t的第<code>j - 1</code>个字符必然在s的前<code>i - 2</code>个字符内出现了，并且最终匹配到了s中某一个位置的与它相同的字符。这样的情况下，得到的所有子序列中，t的最后一个字符（第<code>j - 1</code>个字符）均是与s的前<code>i - 2</code>个字符中的某个与它相同的字符相匹配的。</p>
@@ -555,7 +547,6 @@
 <p>可以看到，在<code>dp[i - 1][j - 1]</code>这种情况下，t的第<code>j - 1</code>个字符是一定与s的第<code>i - 1</code>个字符相匹配的，与<code>dp[i - 1][j]</code>中的不同（<code>dp[i - 1][j]</code>情况下，t的第<code>j - 1</code>个字符是与s的前<code>i - 2</code>个字符中的某个与它相同的字符匹配的）。</p>
 <p>比如这个例子：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">s: <span class="string">&quot;a c b c b&quot;</span></span><br><span class="line">t: <span class="string">&quot;a b&quot;</span></span><br></pre></td></tr></table></figure>
-
 <p>在s的第2个b与t的b相匹配时，发现它俩相同，则触发<code>dp[i][j] = dp[i - 1][j - 1] + dp[i - 1][j]</code></p>
 <ol>
 <li><code>dp[i - 1][j]</code>表示<code>&quot;acbc&quot;</code>里有多少个<code>&quot;ab&quot;</code>，很明显是1个，t中的“a”与s的第1个字符“a”匹配，“b”与s的第3个字符“b”匹配。</li>
@@ -763,7 +754,24 @@
         
         
         
+        
+        
+        
+        
+        
     
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
         
         
         
@@ -788,7 +796,7 @@
     
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 6
+        Total : 7
         </div>
         <!-- search  -->
         
@@ -802,6 +810,12 @@
             <div class="archive-year"> 2021 </div>
             <ul class="year-list">
             
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/01</span>
+            <a class="archive-post-title" href="/2021/12/01/%E5%BF%AB%E6%8E%92%E5%A0%86%E6%8E%92%E6%97%B6%E9%97%B4%E5%A4%8D%E6%9D%82%E5%BA%A6/">关于快排，堆排，快速选择的时间复杂度理解</a>
+        </li>
+    
         
         <li class="archive-post-item">
             <span class="archive-post-date">12/01</span>

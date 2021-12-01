@@ -214,7 +214,11 @@
     
     <!-- 谷歌统计  -->
     
-<meta name="generator" content="Hexo 5.4.0"></head>
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.4.0"></head>
 
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
     <script type="text/javascript">
@@ -506,12 +510,8 @@
 <h3 id="三、Ubuntu安装问题"><a href="#三、Ubuntu安装问题" class="headerlink" title="三、Ubuntu安装问题"></a>三、Ubuntu安装问题</h3><p>在安装ubuntu的过程中，我还多出现了一个问题，提示：<br><strong>”安装程序向硬盘复制文件时遇到错误“</strong><br>是在选择时区之后的安装过程中出现的，具体界面没有截图。<br>百度了一下得知是u盘有问题，换了另一个金士顿的重新制作启动盘，再到这步（给ubuntu分区，比如efi，swap等等）的时候你会发现之前在windows里分好的区已经不是“空闲”状态了，因为在上次失败的安装过程中已经有一部分文件写入了，这时候我们需要点那个减号，重新分区，分好之后就一路绿灯安装完成。</p>
 <h3 id="四、显卡驱动问题"><a href="#四、显卡驱动问题" class="headerlink" title="四、显卡驱动问题"></a>四、显卡驱动问题</h3><p>安装完成后，按照教程的顺序，我们只需要重启再次进入ubuntu就可以了，但是我这里出现了这次双系统安装过程中遇到的最大的坑：ubuntu下的显卡驱动有问题。</p>
 <p>正常的安装完成后，重启进入ubuntu登陆账号进入桌面即可，但我这里重启来到ubuntu的登陆界面后，鼠标键盘都非常卡，而且输入完用户名密码登陆之后会黑屏，然后重新弹回登陆界面。‘</p>
-<p>经过查询得知是显卡驱动的问题，我参考了<a target="_blank" rel="noopener" href="https://www.cnblogs.com/booturbo/p/13967033.html">文章1</a>和<a target="_blank" rel="noopener" href="http://www.45fan.com/article.php?aid=20052773825705249108828691">文章2</a>来解决这个问题。<br>首先执行文章2中的step1和step2，重启（此时是在命令行状态下输入的代码）。<br>然后使用文章1中的方法，主要是找到 quiet splash ，在后面添加nomodeset，按 F10 进入了ubuntu系统，此时的系统分辨率很低。<br>此时再根据<a target="_blank" rel="noopener" href="https://blog.csdn.net/u014561933/article/details/79958017?utm_medium=distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromMachineLearnPai2~default-1.control&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromMachineLearnPai2~default-1.control">这篇文章</a>的2.1、2.2、2.4步骤，主要是得禁用nouveau 内核模块，重启。再用</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lsmod |grep nouveau</span><br></pre></td></tr></table></figure>
-<p>查询是否禁用成功。</p>
-<h3 id="五、显卡驱动安装"><a href="#五、显卡驱动安装" class="headerlink" title="五、显卡驱动安装"></a>五、显卡驱动安装</h3><p>最后就是在终端内安装.run程序。其中也遇到了一些问题：<br>首先，在./Nvidia……这个程序的时候，最后要加上这三个参数：<br>–no-opengl-files<br>–no-x-check<br>–no-nouveau-check<br>安装过程中可能会提示：pre-install xxx failed，不用管，继续就行。<a target="_blank" rel="noopener" href="https://blog.csdn.net/u014561933/article/details/79958130">[参考这个]</a><br>如果提示缺少什么包，就退出之后，安装好之后再重新运行.run程序。我这里提示缺少gcc和make，使用apt-get安装了就好了<br>我在安装过程中的选项所有都选择的no，安装complete之后可以直接输入</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nvidia-smi</span><br></pre></td></tr></table></figure>
-<p>验证，弹出显卡的信息之后就说明安装成功了。</p>
+<p>经过查询得知是显卡驱动的问题，我参考了<a target="_blank" rel="noopener" href="https://www.cnblogs.com/booturbo/p/13967033.html">文章1</a>和<a target="_blank" rel="noopener" href="http://www.45fan.com/article.php?aid=20052773825705249108828691">文章2</a>来解决这个问题。<br>首先执行文章2中的step1和step2，重启（此时是在命令行状态下输入的代码）。<br>然后使用文章1中的方法，主要是找到 quiet splash ，在后面添加nomodeset，按 F10 进入了ubuntu系统，此时的系统分辨率很低。<br>此时再根据<a target="_blank" rel="noopener" href="https://blog.csdn.net/u014561933/article/details/79958017?utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromMachineLearnPai2%7Edefault-1.control&amp;depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromMachineLearnPai2%7Edefault-1.control">这篇文章</a>的2.1、2.2、2.4步骤，主要是得禁用nouveau 内核模块，重启。再用<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lsmod |grep nouveau</span><br></pre></td></tr></table></figure><br>查询是否禁用成功。</p>
+<h3 id="五、显卡驱动安装"><a href="#五、显卡驱动安装" class="headerlink" title="五、显卡驱动安装"></a>五、显卡驱动安装</h3><p>最后就是在终端内安装.run程序。其中也遇到了一些问题：<br>首先，在./Nvidia……这个程序的时候，最后要加上这三个参数：<br>–no-opengl-files<br>–no-x-check<br>–no-nouveau-check<br>安装过程中可能会提示：pre-install xxx failed，不用管，继续就行。<a target="_blank" rel="noopener" href="https://blog.csdn.net/u014561933/article/details/79958130">[参考这个]</a><br>如果提示缺少什么包，就退出之后，安装好之后再重新运行.run程序。我这里提示缺少gcc和make，使用apt-get安装了就好了<br>我在安装过程中的选项所有都选择的no，安装complete之后可以直接输入<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nvidia-smi</span><br></pre></td></tr></table></figure><br>验证，弹出显卡的信息之后就说明安装成功了。</p>
 <p>此时我们再次重启，在windows/ubuntu选择界面就可以任意选择系统进入了，此时的ubuntu已经是高分辨率的有了显卡驱动的状态了。</p>
 <p>至此，双系统安装完成。</p>
 
@@ -710,7 +710,24 @@
         
         
         
+        
+        
+        
+        
+        
     
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
         
         
         
@@ -735,7 +752,7 @@
     
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 6
+        Total : 7
         </div>
         <!-- search  -->
         
@@ -749,6 +766,12 @@
             <div class="archive-year"> 2021 </div>
             <ul class="year-list">
             
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/01</span>
+            <a class="archive-post-title" href="/2021/12/01/%E5%BF%AB%E6%8E%92%E5%A0%86%E6%8E%92%E6%97%B6%E9%97%B4%E5%A4%8D%E6%9D%82%E5%BA%A6/">关于快排，堆排，快速选择的时间复杂度理解</a>
+        </li>
+    
         
         <li class="archive-post-item">
             <span class="archive-post-date">12/01</span>
