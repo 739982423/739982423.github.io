@@ -20,18 +20,25 @@
         <meta name="keywords" content="hexo,hexo-theme,hexo-blog">
     
     <meta name="description" content="">
-    <meta property="og:type" content="website">
-<meta property="og:title" content="Hexo">
-<meta property="og:url" content="http://example.com/archives/2021/11/index.html">
+    <meta name="description" content="记录一下Python库自带的二分查找思路">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Python：bisect库的bisect_left&#x2F;bisect_right函数">
+<meta property="og:url" content="http://example.com/2022/03/09/%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE2/index.html">
 <meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="记录一下Python库自带的二分查找思路">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="d:/blog/hexo/myblog/source/images/二分1.png">
+<meta property="article:published_time" content="2022-03-09T04:30:20.000Z">
+<meta property="article:modified_time" content="2022-03-09T04:33:08.834Z">
 <meta property="article:author" content="Tailsory">
+<meta property="article:tag" content="二分查找">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="d:/blog/hexo/myblog/source/images/二分1.png">
     <meta http-equiv="Cache-control" content="no-cache">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <link rel="icon" href="/assets/favicon.ico">
     
-    <title>Tailsory&#39;s Studio</title>
+    <title>Python：bisect库的bisect_left/bisect_right函数 · Tailsory&#39;s Studio</title>
     <!-- /*! loadCSS. [c]2017 Filament Group, Inc. MIT License */
 /* This file is meant as a standalone workflow for
 - testing support for link[rel=preload]
@@ -219,6 +226,8 @@
         }
     </script>
     
+        <body class="post-body">
+    
         <!-- header -->
         <header class="header header-mobile">
     <!-- top read progress line -->
@@ -248,6 +257,17 @@
     </div>
     <!-- toggle banner for post layout -->
     
+        
+            <div class="banner">
+        
+            <div class="blog-title header-element">
+                <a href="/">Tailsory&#39;s Studio</a>
+            </div>
+            <div class="post-title header-element">
+                <a href="#" class="post-name">Python：bisect库的bisect_left/bisect_right函数</a>
+            </div>
+        </div>
+    
 </header>
 
         <!-- dark mode -->
@@ -276,24 +296,79 @@
 
 
 
+    height:55vh;
+
 ">
     
     <!-- 主页  -->
+    
+        
+    <!-- 404页  -->
             
     <div class="site-intro-placeholder"></div>
-    <div class="site-intro-img" style="background-image: url(/)"></div>
+    <div class="site-intro-img" style="background-image: url(/intro/index-bg4.jpg)"></div>
     <div class="site-intro-meta">
         <!-- 标题  -->
         <h1 class="intro-title">
             <!-- 主页  -->
+            
+                Python：bisect库的bisect_left/bisect_right函数
+            <!-- 404 -->
             
         </h1>
         <!-- 副标题 -->
         <p class="intro-subtitle">
             <!-- 主页副标题  -->
             
+                
+            <!-- 404 -->
+            
         </p>
         <!-- 文章页 meta -->
+        
+            <div class="post-intros">
+                <!-- 文章页标签  -->
+                
+                    <div class= post-intro-tags >
+    
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="二分查找">二分查找</a>
+    
+</div>
+
+                
+                
+                    <div class="post-intro-read">
+                        <span>Word count: <span class="post-count word-count">1.1k</span>Reading time: <span class="post-count reading-time">4 min</span></span>
+                    </div>
+                
+                <div class="post-intro-meta">
+                    <!-- 撰写日期 -->
+                    <span class="iconfont-archer post-intro-calander">&#xe676;</span>
+                    <span class="post-intro-time">2022/03/09</span>
+                    <!-- busuanzi -->
+                    
+                        <span id="busuanzi_container_page_pv" class="busuanzi-pv">
+                            <span class="iconfont-archer post-intro-busuanzi">&#xe602;</span>
+                            <span id="busuanzi_value_page_pv"></span>
+                        </span>
+                    
+                    <!-- 文章分享 -->
+                    <span class="share-wrapper">
+                        <span class="iconfont-archer share-icon">&#xe71d;</span>
+                        <span class="share-text">Share</span>
+                        <ul class="share-list">
+                            <li class="iconfont-archer share-qr" data-type="qr">&#xe75b;
+                                <div class="share-qrcode"></div>
+                            </li>
+                            <li class="iconfont-archer" data-type="weibo">&#xe619;</li>
+                            <li class="iconfont-archer" data-type="qzone">&#xe62e;</li>
+                            <li class="iconfont-archer" data-type="twitter">&#xe634;</li>
+                            <li class="iconfont-archer" data-type="facebook">&#xe67a;</li>
+                        </ul>
+                    </span>
+                </div>
+            </div>
         
     </div>
 </div>
@@ -423,33 +498,101 @@
         
             <img class="loading" src="/assets/loading.svg" style="display: block; margin: 6rem auto 0 auto; width: 6rem; height: 6rem;" />
             <div class="container container-unloaded">
-                <main class="main index-page">
+                <main class="main post-page">
+    <article class="article-entry">
+        <p><strong>记录一下Python库自带的二分查找思路</strong> <span id="more"></span></p>
+<h3 id="记录一下python库自带的二分查找思路">记录一下Python库自带的二分查找思路</h3>
+<h4 id="官方文档介绍">1. 官方文档介绍：</h4>
+<figure>
+<img src="D:\blog\hexo\myblog\source\images\二分1.png" alt="二分1" /><figcaption aria-hidden="true">二分1</figcaption>
+</figure>
+<hr />
+<h4 id="对比分析">2. 对比分析</h4>
+<p>Python提供了两种函数用于二分查找，bisect_left和bisect_right，与我们平时使用的二分查找有一定区别。</p>
+<p>平时使用的查找是去找到数组中target的所在位置，而bisect中的函数则是找到一个位置，将target插入到原数组，并保证原数组的有序。</p>
+<p>在进行二分查找时，一般有两大类情况：</p>
+<ol type="1">
+<li>nums数组中一定存在target，我们的任务是找到它（最左侧或最右侧或任意一个）</li>
+<li>nums数组中不一定存在target，我们的任务是首先判断它是否存在，如果存在则找到它（最左侧或最右侧或任意一个）</li>
+</ol>
+<p>而bisect两个函数可以忽略这种差异，因为它是找到一个位置将target插入，并保证原数组有序，所以无论target是否存在，都可以找到这样一个位置。</p>
+<p><strong>bisect_left()，bisect_right()的差异在于：</strong></p>
+<ol type="1">
+<li>当nums数组中存在target时:
+<ol type="1">
+<li><strong>bisect_left()</strong>是找到target<strong>最左侧的位置</strong>，表示可以在该位置插入target以保证原数组的有序。</li>
+<li>而<strong>bisect_right()</strong>是找到target<strong>最右侧位置的下一个位置</strong>，表示可以在该位置插入target以保证原数组有序。</li>
+</ol></li>
+<li>而当nums数组中不存在target时，<strong>bisect_left()</strong>和<strong>bisect_right()</strong>则会返回同一个位置，表示只能在该位置插入target以保证原数组的有序。结果可能是数组索引为0的位置（表示target比数组中所有元素都小），可能是索引为n的位置（表示target比数组中所有元素都大），也可能是索引为[1，n-1]的某个位置（表示target比该位置前一个位置的元素大，比该位置后一个位置的元素小，所以只能在该位置插入）</li>
+</ol>
+<p>因此，可以看出<strong>bisect_left()，bisect_right()</strong>的搜索范围是<strong>[0, len(nums)]</strong>，与我们平时使用的二分查找搜索范围<strong>[0, len(nums) - 1]</strong>不同。</p>
+<p>因为bisect的两个函数的返回下标[0, n]可能比数组长度n - 1要大，即返回<strong>n</strong>（在target比所有数组元素都大时出现，表示只能在数组下标为n的地方，即数组末尾，插入target以保证原数组有序）。</p>
+<hr />
+<h4 id="源码理解">3. 源码理解</h4>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">bisect_right</span>(<span class="params">a, x, lo=<span class="number">0</span>, hi=<span class="literal">None</span></span>):</span></span><br><span class="line">    <span class="string">&quot;&quot;&quot;Return the index where to insert item x in list a, assuming a is sorted.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    The return value i is such that all e in a[:i] have e &lt;= x, and all e in</span></span><br><span class="line"><span class="string">    a[i:] have e &gt; x.  So if x already appears in the list, a.insert(x) will</span></span><br><span class="line"><span class="string">    insert just after the rightmost x already there.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    Optional args lo (default 0) and hi (default len(a)) bound the</span></span><br><span class="line"><span class="string">    slice of a to be searched.</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line">    <span class="keyword">if</span> lo &lt; <span class="number">0</span>:</span><br><span class="line">        <span class="keyword">raise</span> ValueError(<span class="string">&#x27;lo must be non-negative&#x27;</span>)</span><br><span class="line">    <span class="keyword">if</span> hi <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">        hi = <span class="built_in">len</span>(a)</span><br><span class="line">    <span class="keyword">while</span> lo &lt; hi:</span><br><span class="line">        mid = (lo+hi)//<span class="number">2</span></span><br><span class="line">        <span class="keyword">if</span> x &lt; a[mid]: hi = mid</span><br><span class="line">        <span class="keyword">else</span>: lo = mid+<span class="number">1</span></span><br><span class="line">    <span class="keyword">return</span> lo</span><br></pre></td></tr></table></figure>
+<p>以上是bisect_right的官方源码。</p>
+<p>因为找的是target的右侧边界的下一个位置。所以应该：</p>
+<p><strong>当nums[mid] &lt;= target的时候</strong>（我们要找的是第一个比target大的元素，所以当nums[mid]小于等于target的时候，mid和mid左侧的元素一定不是我要找的，左侧缩减边界至mid + 1，即left = mid + 1），<strong>令left = mid + 1。</strong></p>
+<p><strong>否则right = mid</strong>（当nums[mid]是大于target的时候，该mid坐在位置可能是我要的所谓的第一个大于target的元素，所以不应该去掉，而是只缩减mid右侧的元素，令right = mid而不是mid - 1）。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">bisect_left</span>(<span class="params">a, x, lo=<span class="number">0</span>, hi=<span class="literal">None</span></span>):</span></span><br><span class="line">    <span class="string">&quot;&quot;&quot;Return the index where to insert item x in list a, assuming a is sorted.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    The return value i is such that all e in a[:i] have e &lt; x, and all e in</span></span><br><span class="line"><span class="string">    a[i:] have e &gt;= x.  So if x already appears in the list, a.insert(x) will</span></span><br><span class="line"><span class="string">    insert just before the leftmost x already there.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    Optional args lo (default 0) and hi (default len(a)) bound the</span></span><br><span class="line"><span class="string">    slice of a to be searched.</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line">    <span class="keyword">if</span> lo &lt; <span class="number">0</span>:</span><br><span class="line">        <span class="keyword">raise</span> ValueError(<span class="string">&#x27;lo must be non-negative&#x27;</span>)</span><br><span class="line">    <span class="keyword">if</span> hi <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">        hi = <span class="built_in">len</span>(a)</span><br><span class="line">    <span class="keyword">while</span> lo &lt; hi:</span><br><span class="line">        mid = (lo+hi)//<span class="number">2</span></span><br><span class="line">        <span class="keyword">if</span> a[mid] &lt; x: lo = mid+<span class="number">1</span></span><br><span class="line">        <span class="keyword">else</span>: hi = mid</span><br><span class="line">    <span class="keyword">return</span> lo</span><br></pre></td></tr></table></figure>
+<p>对于bisect_left的官方源码也是同理。</p>
+<p>因为找的是target的左侧边界（第一个target出现的位置）。所以应该：</p>
+<p><strong>当nums[mid] &lt; target的时候</strong>（该mid所在位置一定不是我要找的）<strong>，令mid = left + 1。</strong></p>
+<p><strong>否则</strong>nums[mid] &gt;= target的时候（该mid所在位置可能是我要找的，所以保留mid位置）<strong>，令right = mid。</strong></p>
+
+    </article>
+    <!-- license -->
     
-        
-        
-        
+        <div class="license-wrapper">
+            <p>Author：<a href="http://example.com">Tailsory</a>
+            <p>原文链接：<a href="http://example.com/2022/03/09/%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE2/">http://example.com/2022/03/09/%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE2/</a>
+            <p>发表日期：<a href="http://example.com/2022/03/09/%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE2/">March 9th 2022, 12:30:20 pm</a>
+            <p>更新日期：<a href="http://example.com/2022/03/09/%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE2/">March 9th 2022, 12:33:08 pm</a>
+            <p>版权声明：本文采用<a rel="license noopener" target="_blank" href="http://creativecommons.org/licenses/by-nc/4.0/">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可</p>
+        </div>
+    
+    <!-- paginator -->
+    <ul class="post-paginator">
+        <li class="next">
             
-        
-        <article class="index-post">
-            <a class="abstract-title" href="/2021/11/18/%E5%85%B3%E4%BA%8E%E4%BA%8C%E5%88%86/">
-                
-                <span class="abstract-title-text">关于二分查找的一些记录</span>
-            </a>
-            <div class="abstract-content">
-                <p><strong>主要关注二分查找某个元素的边界问题，比如nums = [1,3,4,5,5,5,6,7,9,9,9]中元素5的左右边界位置。</strong>
-            </div>
-            <div class="abstract-post-meta">
-                <!-- date -->
-                <div class="abstract-date">
-                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2021/11/18</span>
-                </div>
-                <!-- tags -->
-                
-            </div>
-        </article>
-        <div class="index-post-divider"></div>
+        </li>
+        <li class="previous">
+            
+                <div class="prevSlogan">Previous Post</div>
+                <a href="/2022/02/08/%E6%9C%80%E5%B0%8F%E7%94%9F%E6%88%90%E6%A0%91/" title="最小生成树-Prim算法Python实现及理解">
+                    <div class="prevTitle">最小生成树-Prim算法Python实现及理解</div>
+                </a>
+            
+        </li>
+    </ul>
+    <!-- comment -->
+     
+        <div class="post-comment">
+            <!-- 来必力 City 版安装代码 -->
+
+
+            
+
+            
+
+            
+
+            <!-- utteranc评论 -->
+
+
+            <!-- partial('_partial/comment/changyan') -->
+            <!--PC版-->
+
+
+            
+            
+
+        </div>
     
-    <!-- paginator  -->
+    <!-- timeliness note -->
+    <!-- idea from: https://hexo.fluid-dev.com/posts/hexo-injector/#%E6%96%87%E7%AB%A0%E6%97%B6%E6%95%88%E6%80%A7%E6%8F%90%E7%A4%BA -->
+    
+    <!-- Mathjax -->
     
 </main>
 
@@ -533,6 +676,23 @@
 
         </div>
         <!-- toc -->
+        
+            <div class="toc-wrapper" style=
+
+
+
+
+
+
+
+    top:55vh;
+
+>
+                <div class="toc-catalog">
+                    <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
+                </div>
+                <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AE%B0%E5%BD%95%E4%B8%80%E4%B8%8Bpython%E5%BA%93%E8%87%AA%E5%B8%A6%E7%9A%84%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE%E6%80%9D%E8%B7%AF"><span class="toc-number">1.</span> <span class="toc-text">记录一下Python库自带的二分查找思路</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%98%E6%96%B9%E6%96%87%E6%A1%A3%E4%BB%8B%E7%BB%8D"><span class="toc-number">1.1.</span> <span class="toc-text">1. 官方文档介绍：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AF%B9%E6%AF%94%E5%88%86%E6%9E%90"><span class="toc-number">1.2.</span> <span class="toc-text">2. 对比分析</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%BA%90%E7%A0%81%E7%90%86%E8%A7%A3"><span class="toc-number">1.3.</span> <span class="toc-text">3. 源码理解</span></a></li></ol></li></ol>
+            </div>
         
         <!-- sidebar -->
         <div class="sidebar sidebar-hide">
@@ -793,6 +953,8 @@
         <!-- CNZZ -->
         
         <!-- async load share.js -->
+        
+            <script src="/scripts/share.js" async></script>    
         
         <!-- mermaid -->
         
